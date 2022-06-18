@@ -1,0 +1,80 @@
+name: Task
+on:
+  push:
+  
+jobs:
+  Task:
+      runs-on: ubuntu-latest
+      steps:
+
+        - uses: actions/checkout@v3
+        - name: create
+          shell: bash
+          run: |
+            mkdir artifacts 
+            cd artifacts
+            echo ' Part I ' >> answer.txt
+            echo ' 1. Пусть, вы находитесь в каталоге /home/user/workspace. Назовите известные вам команды (с параметрами) для перехода в каталог /home/user/ ' >> answer.txt
+            echo ' $ cd .. ' >> answer.txt
+            echo ' $ cd ' >> answer.txt
+            echo ' $ cd ~/ ' >> answer.txt
+            echo ' $ cd /home/user ' >> answer.txt
+            
+            echo ' 2. Определить, в каких файлах не содержится подстрока ' >> answer.txt
+            echo ' $ grep -L "подстрока" ' >> answer.txt
+            
+            echo ' 3. В каталоге /home/user/workspace создать каталог test, в котором будет файл test.txt ' >> answer.txt
+            echo ' $ mkdir -p /home/user/workspace/test ' >> answer.txt
+            echo ' $ touch /home/user/workspace/test.txt ' >> answer.txt
+            
+            echo ' 4. Сделать архив, содержащий каталог test ' >> answer.txt
+            echo ' $ tar czf test.tar.gz /home/user/workspace/test ' >> answer.txt
+            
+            echo ' 5. Найти все файлы текущего каталога, в которых встречается подстрока ‘aaa’ и подстрока ‘bbb’ одновременно ' >> answer.txt
+            echo ' $ grep -rlw "bbb" `grep -rlw "aaa" ./` ' >> answer.txt
+            
+            echo ' 6. Определить количество только каталогов в текущем каталоге ' >> answer.txt
+            echo ' $ find -type d | wc -l ' >> answer.txt
+            
+            echo ' Определить самые большие по размеру каталоги в системе ' >> answer.txt
+            echo ' $ du -h / | sort -hr | head -5 ' >> answer.txt
+            
+            echo ' Part II ' >> answer.txt
+            echo ' 1. Приведите две команды, с помощью которых в можно получить локальный репозиторий git. ' >> answer.txt
+            echo ' $ git init ' >> answer.txt
+            echo ' $ git clone ' >> answer.txt
+            
+            echo ' 2. Если добавить новый файл (изменение 1) в git-репозиторий (git add), затем без коммита изменить этот файл (изменение 2), затем выполнить команду commit -m “commit file”. Версия файла с каким изменением будет зафиксирована? ' >> answer.txt
+            echo ' Версия с изменением 1 ' >> answer.txt
+            
+            echo ' 3. Git checkout master; git merge patch1; какая ветка вливается в какую? ' >> answer.txt
+            echo ' patch1 в master ' >> answer.txt
+            
+            echo ' 4. Git checkout patch1; git rebase master; какая ветка вливается в какую? ' >> answer.txt
+            echo ' patch1 в master ' >> answer.txt
+            
+            echo ' 5. Два пользователя одновременно выполняют команду push на один и тот же удаленный репозиторий. Что произойдет? ' >> answer.txt
+            echo ' Коммит, пришедший позже, будет отвергнут, так как его история изменений не совпадает с текущей в репозитории ' >> answer.txt
+            
+            echo ' 6. Как выглядят конфликты слияния в файлах? ' >> answer.txt
+            echo ' <<<<<<< HEAD ' >> answer.txt
+            echo ' *line1* ' >> answer.txt
+            echo ' ======= ' >> answer.txt
+            echo ' *line2* ' >> answer.txt
+            echo ' >>>>>>> patch1 ' >> answer.txt
+            
+            echo ' Part III '  >> answer.txt
+            echo ' 1. Какой файл должен присутствовать в каталоге для сборки cmake? '  >> answer.txt
+            echo ' CMakeLists.txt '  >> answer.txt
+            
+            echo ' 2. Какой директивой cmake указывается версия стандарта компилятора? '  >> answer.txt
+            echo ' $ set(CMAKE_CXX_STANDARD *ver*) ' >> answer.txt
+            
+            echo ' 3. Какой директивой cmake добавляется библиотека в проект? '  >> answer.txt
+            echo ' $ target_link_libraries(*target* *lib*) ' >> answer.txt
+            
+        - name: Publish
+          uses: actions/upload-artifact@v2
+          with:
+            name: artifacts
+            path: artifacts/
